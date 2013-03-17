@@ -3,8 +3,8 @@
   <% for site in @sites: %>
     <div class="item">
       <a href="<%= site.url %>">
-        <img src="chrome://thumb/<%= site.url %>" />
         <span><%= site.title %></span>
+        <img src="chrome://thumb/<%= site.url %>" />
       </a>
     </div>
   <% end %>
