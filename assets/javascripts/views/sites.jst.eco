@@ -1,0 +1,12 @@
+<div class="sites">
+
+  <% for site in @sites: %>
+    <div class="item">
+      <a href="<%= site.url %>">
+        <img src="chrome://thumb/<%= site.url %>" />
+        <span><%= site.title %></span>
+      </a>
+    </div>
+  <% end %>
+
+</div>
