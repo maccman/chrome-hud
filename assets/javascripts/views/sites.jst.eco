@@ -1,12 +1,13 @@
-<div class="sites">
+<div class="settings icon-cog" title="Settings"></div>
 
-  <% for site in @sites: %>
-    <div class="item">
-      <a href="<%= site.url %>">
-        <span><%= site.title %></span>
-        <img src="chrome://thumb/<%= site.url %>" />
-      </a>
-    </div>
-  <% end %>
-
+<div class="items">
+<% for site in @sites: %>
+  <div class="item">
+    <a href="<%= site.url %>">
+      <span class="remove icon-remove-sign"></span>
+      <span class="title"><%= site.title %></span>
+      <img src="chrome://thumb/<%= site.url %>" />
+    </a>
+  </div>
+<% end %>
 </div>

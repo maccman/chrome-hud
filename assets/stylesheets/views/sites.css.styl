@@ -1,15 +1,48 @@
 @import "../mixin.styl"
 
+@keyframes shake {
+  0% { -webkit-transform: translate(1px, 1px) rotate(0deg); }
+  10% { -webkit-transform: translate(-1px, -1px) rotate(-1deg); }
+  20% { -webkit-transform: translate(-1px, 0px) rotate(1deg); }
+  30% { -webkit-transform: translate(0px, 1px) rotate(0deg); }
+  40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+  50% { -webkit-transform: translate(-1px, 1px) rotate(-1deg); }
+  60% { -webkit-transform: translate(-1px, 1px) rotate(0deg); }
+  70% { -webkit-transform: translate(1px, 1px) rotate(-1deg); }
+  80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+  90% { -webkit-transform: translate(1px, 1px) rotate(0deg); }
+  100% { -webkit-transform: translate(1px, -1px) rotate(-1deg); }
+}
+
 #app .sites {
-  hbox()
-  padding: 30px 22px 40px 42px
-  overflow: auto
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1) 80%, rgba(0, 0, 0, 0))
+  background: linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.1) 80%, rgba(0, 0, 0, 0))
+  position: relative
+
+  .items {
+    padding: 30px 22px 40px 42px
+    hbox()
+    overflow: auto
+  }
+
+  .settings {
+    position: absolute
+    right: 7px
+    top: 7px
+    font-size: 20px
+    -webkit-transition: all 400ms linear
+    cursor: pointer
+    color: lighten(#303231, 30%)
+
+    &:hover {
+      color: #303231
+    }
+  }
 
   .item {
     display: block
     margin: 0 22px 0 0;
     width: 180px
+    position: relative
 
     a {
       text-decoration: none
@@ -30,7 +63,7 @@
       box-shadow: 0 0 6px #0079ff
     }
 
-    span {
+    span.title {
       margin: 5px 0
       text-align: center
       display: block
@@ -41,30 +74,63 @@
       color: #FFF
       ellipsis()
     }
+
+    span.remove {
+      display: none
+      color: #2F3230
+      position: absolute
+      right: -5px
+      top: 23px
+      font-size: 20px
+      background: #FFF
+      height: 15px
+      line-height: 15px
+      border-radius: 15px
+    }
   }
 
-  &::-webkit-scrollbar {
+  &.editing {
+    .settings {
+      transform: rotate(-120deg)
+    }
+
+    .item {
+      -webkit-animation-name: shake;
+      -webkit-animation-duration: 1.2s;
+      -webkit-transform-origin:50% 50%;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+
+      span.remove {
+        display: block
+      }
+    }
+  }
+
+  .items::-webkit-scrollbar {
     height: 8px;
   }
 
-  &::-webkit-scrollbar-button:start:decrement {
+  .items::-webkit-scrollbar-button:start:decrement {
     display: block; height: 20px; width: 20px; background-color: transparent;
   }
 
-  &::-webkit-scrollbar-button:end:increment {
+  .items::-webkit-scrollbar-button:end:increment {
     display: block; height: 20px; width: 20px; background-color: transparent;
   }
 
-  &::-webkit-scrollbar-track:enabled {
+  .items::-webkit-scrollbar-track:enabled {
     background-color: rgba(0,0,0,0.05);
     -webkit-box-shadow: 0 1px 2px rgba(255,255,255,0.22), inset 0 1px 2px rgba(0,0,0,0.15);
+    border-radius: 5px
   }
 
-  &::-webkit-scrollbar-thumb:horizontal {
-    width: 20px;
-    background-image: -webkit-gradient(linear, 0% 30%, 0% 100%, from(rgba(235,236,239,0.5)), to(rgba(235,236,239,0.3)));
-    border-top: 1px solid rgba(0,0,0,0.25);
-    border-bottom: 1px solid rgba(0,0,0,0.3);
-    -webkit-box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
+  .items::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 5px
+    width: 20px
+    background-image: -webkit-gradient(linear, 0% 30%, 0% 100%, from(rgba(235,236,239,0.5)), to(rgba(235,236,239,0.3)))
+    border: 1px solid rgba(0,0,0,0.2)
+    border-top: 1px solid rgba(0,0,0,0.1)
+    -webkit-box-shadow: inset 0 1px 2px rgba(255,255,255,0.5)
   }
 }
