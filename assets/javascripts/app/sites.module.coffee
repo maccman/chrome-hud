@@ -8,10 +8,13 @@ class Sites extends Controller
 
   constructor: ->
     super
+
     @$el.on('click', '.settings', @toggleEdit)
     @$el.on('remove', '.item', @remove)
     @$el.on('click', '.item .remove', -> $(@).trigger('remove'))
     @$el.on('click', '.item', @click)
+    @$el.on('sortupdate', '.item', @sort)
+
     chrome.topSites.get @render
 
   render: (@sites) =>
@@ -27,9 +30,18 @@ class Sites extends Controller
 
   edit: (enabled) =>
     @editing = enabled
+
     @$el.toggleClass('editing', @editing)
+
+    if @editing
+      @$('.items').sortable()
+    else
+      @$('.items').sortable('destroy')
 
   click: (e) =>
     e.preventDefault() if @editing
+
+  sort: (e) =>
+    console.log('sorted')
 
 module.exports = Sites

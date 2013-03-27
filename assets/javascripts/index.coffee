@@ -2,6 +2,7 @@
 //= require controller.module
 //= require jquery.browser
 //= require jquery.gfx
+//= require jquery.sortable
 //= require_tree ./app
 //= require_tree ./views
 //= require_self
